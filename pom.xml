@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.voodoowarez.mojo</groupId>
+	<groupId>com.voodoowarez.mojo.ndyn</groupId>
 	<artifactId>ndyn-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<version>0.9-SNAPSHOT</version>
-	<name>Ndyn-Mojo</name>
+	<name>Ndyn Maven Plugin</name>
 	<url>http://voodwoowarez.cmo/mojo-ndyn</url>
 
 	<dependencies>
@@ -28,9 +28,21 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.voodoowarez.mojo</groupId>
+				<groupId>com.voodoowarez.mojo.git10</groupId>
 				<artifactId>git10-maven-plugin</artifactId>
 				<version>1.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>git10</goal>
+						</goals>
+						<configuration>
+							<repository>git://github.com/isaacs/npm</repository>
+							<branch>v1.3.11</branch>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
