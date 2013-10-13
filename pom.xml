@@ -10,11 +10,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.projectodd</groupId>
 			<artifactId>nodyn-verticle</artifactId>
 			<version>0.1.1-SNAPSHOT</version>
@@ -22,7 +17,28 @@
 		<dependency>
 			<groupId>org.dynjs</groupId>
 			<artifactId>dynjs</artifactId>
-			<version>0.1.2-SNAPSHOT</version>
+			<version>99.1.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>15.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
+			<version>3.2</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -39,45 +55,71 @@
 						</goals>
 						<configuration>
 							<repository>git://github.com/isaacs/npm</repository>
-							<branch>v1.3.11</branch>
+							<branchOrTag>v1.3.11</branchOrTag>
+							<remoteName>dog</remoteName>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				 <groupId>org.apache.maven.plugins</groupId>
+				 <artifactId>maven-compiler-plugin</artifactId>
+				 <version>3.1</version>
+				 <configuration>
+					  <source>1.5</source>
+					  <target>1.5</target>
+				 </configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<!-- see http://jira.codehaus.org/browse/MNG-5346 -->
+					<!-- <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound> -->
+				</configuration>
+				<executions>
+					<execution>
+						<id>mojo-descriptor</id>
+						<goals>
+							<goal>descriptor</goal>
+						</goals>
+					</execution>
+					<!-- if you want to generate help goal -->
+					<execution>
+						<id>help-goal</id>
+						<goals>
+							<goal>helpmojo</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>projectodd-repository</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>projectodd-upstream</id>
-					<name>project:odd Upstream Builds</name>
-					<url>https://repository-projectodd.forge.cloudbees.com/upstream</url>
-					<layout>default</layout>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-				<repository>
-					<id>projectodd-snapshot</id>
-					<name>project:odd snapshot Builds</name>
-					<url>https://repository-projectodd.forge.cloudbees.com/snapshot</url>
-					<layout>default</layout>
-					<releases>
-						<enabled>false</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
+	<repositories>
+		<repository>
+			<id>projectodd-upstream</id>
+			<name>project:odd Upstream Builds</name>
+			<url>https://repository-projectodd.forge.cloudbees.com/upstream</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>projectodd-snapshot</id>
+			<name>project:odd snapshot Builds</name>
+			<url>https://repository-projectodd.forge.cloudbees.com/snapshot</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>
