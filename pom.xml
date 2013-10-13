@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.voodoowarez.mojo</groupId>
-	<artifactId>ndyn-mojo</artifactId>
+	<artifactId>ndyn-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<version>0.9-SNAPSHOT</version>
 	<name>Ndyn-Mojo</name>
-	<url>http://voodwoowarez.cmo/ndyn-mojo</url>
+	<url>http://voodwoowarez.cmo/mojo-ndyn</url>
 
 	<dependencies>
 		<dependency>
@@ -19,5 +19,53 @@
 			<artifactId>nodyn-verticle</artifactId>
 			<version>0.1.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.dynjs</groupId>
+			<artifactId>dynjs</artifactId>
+			<version>0.1.2-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.voodoowarez.mojo</groupId>
+				<artifactId>git10-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>projectodd-repository</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>projectodd-upstream</id>
+					<name>project:odd Upstream Builds</name>
+					<url>https://repository-projectodd.forge.cloudbees.com/upstream</url>
+					<layout>default</layout>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>projectodd-snapshot</id>
+					<name>project:odd snapshot Builds</name>
+					<url>https://repository-projectodd.forge.cloudbees.com/snapshot</url>
+					<layout>default</layout>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
 </project>
